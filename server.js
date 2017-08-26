@@ -16,6 +16,7 @@ mongoose.Promise = Promise;
 
 
 // Initialize Express
+var port =process.env.PORT || 3000;
 var app = express();
 
 // Use and body parser with our app
@@ -127,7 +128,7 @@ app.get("/articles/:id", function(req, res) {
 
 
 // Create a new Comment or replace an existing Comment
-app.post("/articles/:id", function(req, res) {
+app.post("/savecomment/:id", function(req, res) {
   // Create a new Comment and pass the req.body to the entry
   var newComment = new Comment(req.body);
 
@@ -140,7 +141,7 @@ app.post("/articles/:id", function(req, res) {
     // Otherwise
     else {
       // Use the article id to find and update it's Comment
-      Article.findOneAndUpdate({ "_id": req.params.id }, { "comment": doc._id })
+      Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comment": doc._id }})
       // Execute the above query
       .exec(function(err, doc) {
         // Log any errors
