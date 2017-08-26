@@ -16,7 +16,7 @@ mongoose.Promise = Promise;
 
 
 // Initialize Express
-var port =process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 var app = express();
 
 // Use and body parser with our app
@@ -36,7 +36,8 @@ app.use(express.static("public"));
 
 // Database configuration with mongoose
 // mongoose.connect("mongodb://heroku_3wdkcx0x:graes7t0thvggbvhggrrf68pvt@ds149603.mlab.com:49603/heroku_3wdkcx0x");
-mongoose.connect("mongodb://localhost/newsscraper");
+var URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/newsscraper';
+mongoose.connect(URI);
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -159,6 +160,6 @@ app.post("/savecomment/:id", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("App running on port 3000!");
 });

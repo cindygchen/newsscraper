@@ -46,7 +46,7 @@ $(document).on("click", "#submit", function() {
       })
       $("#commentField").val("");
 		$("#comments-section").css("display", "none");
-})
+});
 
 
 
